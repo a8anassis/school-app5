@@ -9,6 +9,7 @@ import gr.aueb.cf.schoolapp.dto.TeacherInsertDTO;
 import gr.aueb.cf.schoolapp.model.Teacher;
 import gr.aueb.cf.schoolapp.service.ITeacherService;
 import gr.aueb.cf.schoolapp.service.TeacherServiceImpl;
+import gr.aueb.cf.schoolapp.validator.TeacherValidator;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -18,6 +19,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InsertForm extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -58,19 +61,32 @@ public class InsertForm extends JFrame {
         btnInsert.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                Map<String, String> errors = new HashMap<>();
+
                 // Data Binding
                 String inputLastname = frmSname.getText().trim();
                 String inputFirstname = frmFname.getText().trim();
 
                 // Validation
-                if (inputLastname.equals("") || inputFirstname.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Not valid input", "INSERT ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+//                if (inputLastname.equals("") || inputFirstname.equals("")) {
+//                    JOptionPane.showMessageDialog(null, "Not valid input", "INSERT ERROR", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+
                 try {
                     // Data Binding - Create DTO
                     TeacherInsertDTO insertDTO = new TeacherInsertDTO();
                     insertDTO.setFirstname(inputFirstname);
                     insertDTO.setLastname(inputLastname);
+
+                    errors = TeacherValidator.validate(insertDTO);
+
+                    if (!errors.isEmpty()) {
+                        String firstnameMessage = (errors.get("firstname") != null) ? "Firstname: " + errors.get("firstname") : "";
+                        String lastnameMessage = (errors.get("lastname") != null) ? "Lastname: " + errors.get("lastname") : "";
+                        JOptionPane.showMessageDialog(null, firstnameMessage + " " + lastnameMessage , "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
 
                     Teacher teacher = teacherService.insertTeacher(insertDTO);
 
