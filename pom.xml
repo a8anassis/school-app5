@@ -44,8 +44,6 @@
 
   </dependencies>
 
-
-
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
@@ -89,10 +87,10 @@
 <!--          <version>3.0.0</version>-->
 <!--        </plugin>-->
 
-<!--        <plugin>-->
-<!--          <groupId>org.codehaus.mojo</groupId>-->
-<!--          <artifactId>exec-maven-plugin</artifactId>-->
-<!--          <version>1.2.1</version>-->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2.1</version>
 <!--          <executions>-->
 <!--            <execution>-->
 <!--              <goals>-->
@@ -100,10 +98,10 @@
 <!--              </goals>-->
 <!--            </execution>-->
 <!--          </executions>-->
-<!--          <configuration>-->
-<!--            <mainClass>gr.aueb.cf.schoolapp.Main</mainClass>-->
-<!--          </configuration>-->
-<!--        </plugin>-->
+          <configuration>
+            <mainClass>gr.aueb.cf.schoolapp.Main</mainClass>
+          </configuration>
+        </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -122,7 +120,7 @@
                           implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                   <transformer
                           implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>gr.aueb.cf.schoolapp.Main</mainClass>
+                          <mainClass>gr.aueb.cf.schoolapp.Main</mainClass>
                   </transformer>
                 </transformers>
                 <createDependencyReducedPom>false</createDependencyReducedPom>
