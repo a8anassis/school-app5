@@ -25,7 +25,7 @@ public class TeacherServiceImpl implements ITeacherService {
         try {
             //teacher = map(dto);
             //return teacherDAO.insert(teacher);
-            return Optional.of(teacherDAO.insert(map(dto)))
+                return Optional.of(teacherDAO.insert(map(dto)))
                     .orElseThrow(() -> new RuntimeException(""));
         } catch (TeacherDAOException e) {
             e.printStackTrace();
@@ -36,18 +36,20 @@ public class TeacherServiceImpl implements ITeacherService {
     @Override
     public Teacher updateTeacher(TeacherUpdateDTO dto) throws TeacherNotFoundException, TeacherDAOException {
         if (dto == null) return null;
-        // Teacher teacher = null;
+        Teacher teacher = null;
 
         try {
-              //teacher = map(dto);
+            teacher = map(dto);
 //
 //            if (teacherDAO.getById(teacher.getId()) == null) {
 //                throw new TeacherNotFoundException(teacher);
 //            }
-//            return teacherDAO.update(teacher);
-            return Optional.of(teacherDAO.update(map(dto)))
-                    .orElseThrow(() -> new TeacherNotFoundException("Teacher not found"));
 
+            Teacher existingTeacher = Optional.of(teacherDAO.getById(teacher.getId()))
+                    .orElseThrow(() -> new TeacherNotFoundException("Teacher not found"));
+//            return teacherDAO.update(teacher);
+            return Optional.of(teacherDAO.update(teacher))
+                    .orElseThrow(() -> new RuntimeException("runtime exception"));
         } catch (TeacherDAOException | TeacherNotFoundException e) {
             e.printStackTrace();
             throw e;
