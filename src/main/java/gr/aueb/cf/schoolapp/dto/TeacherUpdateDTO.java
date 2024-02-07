@@ -8,7 +8,8 @@ public class TeacherUpdateDTO extends BaseDTO {
 
     }
 
-    public TeacherUpdateDTO(String firstname, String lastname) {
+    public TeacherUpdateDTO(int id, String firstname, String lastname) {
+        setId(id);
         this.firstname = firstname;
         this.lastname = lastname;
     }
