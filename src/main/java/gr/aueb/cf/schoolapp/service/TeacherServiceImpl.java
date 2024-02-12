@@ -45,7 +45,7 @@ public class TeacherServiceImpl implements ITeacherService {
 //                throw new TeacherNotFoundException(teacher);
 //            }
 
-            Teacher existingTeacher = Optional.of(teacherDAO.getById(teacher.getId()))
+            Teacher existingTeacher = Optional.ofNullable(teacherDAO.getById(teacher.getId()))
                     .orElseThrow(() -> new TeacherNotFoundException("Teacher not found"));
 //            return teacherDAO.update(teacher);
             return Optional.of(teacherDAO.update(teacher))
@@ -61,13 +61,13 @@ public class TeacherServiceImpl implements ITeacherService {
         if (id == null) return;
 
         try {
-            if (teacherDAO.getById(id) == null) {
-                throw new TeacherNotFoundException("Teacher not found");
-            }
-            teacherDAO.delete(id);
-//            Teacher existingTeacher = Optional.of(teacherDAO.getById(id))
-//                    .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
-//            teacherDAO.delete(existingTeacher.getId());
+//            if (teacherDAO.getById(id) == null) {
+//                throw new TeacherNotFoundException("Teacher not found");
+//            }
+//            teacherDAO.delete(id);
+            Teacher existingTeacher = Optional.ofNullable(teacherDAO.getById(id))
+                    .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
+            teacherDAO.delete(existingTeacher.getId());
         } catch (TeacherDAOException | TeacherNotFoundException e) {
             e.printStackTrace();
             throw e;
@@ -78,17 +78,17 @@ public class TeacherServiceImpl implements ITeacherService {
     public Teacher getTeacherById(Integer id) throws TeacherDAOException, TeacherNotFoundException {
         Teacher teacher;
         try {
-            teacher = teacherDAO.getById(id);
-            if (teacher == null) {
-                throw new TeacherNotFoundException("Teacher with id " + id + " not found");
-            }
-//            return Optional.of(teacherDAO.getById(id))
-//                    .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
+//            teacher = teacherDAO.getById(id);
+//            if (teacher == null) {
+//                throw new TeacherNotFoundException("Teacher with id " + id + " not found");
+//            }
+            return Optional.ofNullable(teacherDAO.getById(id))
+                    .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
         } catch (TeacherDAOException | TeacherNotFoundException e) {
             e.printStackTrace();
             throw e;
         }
-        return teacher;
+        // return teacher;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class TeacherServiceImpl implements ITeacherService {
         try {
 //            teachers = teacherDAO.getByLastname(lastname);
 //            return teachers;
-            return Optional.of(teacherDAO.getByLastname(lastname))
+            return Optional.ofNullable(teacherDAO.getByLastname(lastname))
                     .orElseThrow(() -> new RuntimeException("Teachers not found"));
         } catch (TeacherDAOException e) {
             e.printStackTrace();

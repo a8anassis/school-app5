@@ -26,7 +26,7 @@ class TeacherServiceTest {
     @BeforeAll
     public static void setupClass() throws SQLException {
         teacherService = new TeacherServiceImpl(teacherDAO);
-        DBHelper.eraseData();
+//        DBHelper.eraseData();
     }
 
     @BeforeEach
@@ -62,8 +62,13 @@ class TeacherServiceTest {
         int id = 1;
         teacherService.deleteTeacher(id);
 
-        Teacher teacher = teacherService.getTeacherById(id);
-        assertNull(teacher);
+        assertThrows(TeacherNotFoundException.class, () -> {
+            teacherService.getTeacherById(1);
+        });
+
+//        Teacher teacher = null;
+//        teacher = teacherService.getTeacherById(id);
+//        assertNull(teacher);
         //assertTrue(true);
     }
 
