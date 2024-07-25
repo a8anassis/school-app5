@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TeacherServiceTest {
 
-    private static ITeacherDAO teacherDAO = new TeacherDAOImpl();
+    private static final ITeacherDAO teacherDAO = new TeacherDAOImpl();
     private static ITeacherService teacherService;
 
     @BeforeAll
@@ -64,6 +64,7 @@ class TeacherServiceTest {
 
         assertThrows(TeacherNotFoundException.class, () -> {
             teacherService.getTeacherById(1);
+            //teacherService.deleteTeacher(100);
         });
 
 //        Teacher teacher = null;

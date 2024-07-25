@@ -69,7 +69,7 @@ public class TeacherServiceImpl implements ITeacherService {
                     .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
             teacherDAO.delete(existingTeacher.getId());
         } catch (TeacherDAOException | TeacherNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throw e;
         }
     }
@@ -85,7 +85,7 @@ public class TeacherServiceImpl implements ITeacherService {
             return Optional.ofNullable(teacherDAO.getById(id))
                     .orElseThrow(() -> new TeacherNotFoundException("Teacher with id: " +  id + " not found"));
         } catch (TeacherDAOException | TeacherNotFoundException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             throw e;
         }
         // return teacher;

@@ -23,7 +23,7 @@ class TeacherTest {
         assertEquals(teacher.getId(), 2);
         assertEquals(teacher.getFirstname(), "Anna");
         assertEquals(teacher.getLastname(), "Giannoutsou");
-        String expected = "2, Anna, Giannoutsou";
+        String expected = "id=2, firstname=Anna, lastname=Giannoutsou";
         assertEquals(expected, teacher.toString());
     }
 }
